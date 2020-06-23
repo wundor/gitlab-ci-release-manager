@@ -17,12 +17,12 @@ You can run it in Docker or by itself with Nodejs
 **Run script in Docker**
 
 `$ docker build -t glci:volatile .`  
-Create `.env` file with appropriate values (or you can just provide environment variables to Docker with `-e` flags)
+Create `.env` file with appropriate values (or you can just provide environment variables to Docker with `-e` flags)  
 `$ docker run --env-file .env glci:volatile`
 
 
 **Run script by itself**
 
 `$ npm ci`  
-Change `index.js` to provide needed environment variables (or just provide variables to Node in launch time)
+Change `index.js` to provide needed environment variables (or just provide variables to Node in launch time)  
 `$ node index.js`
