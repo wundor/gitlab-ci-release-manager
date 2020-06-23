@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:lts-slim
 WORKDIR /src
 COPY package.json /src/
 COPY package-lock.json /src/
