@@ -1,5 +1,3 @@
-// Example URL for GitLab API request:
-// https://gitlab.example.com/api/v4/projects/123/merge_requests/456?private_token=TOKEN
 const http = require('https');
 const semver = require('semver')
 
