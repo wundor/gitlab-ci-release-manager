@@ -2,6 +2,33 @@
 
 Simple script which allows you to bump up version of your project based on GitLab MR labels. Versions are bumped as git tags, so it's language-agnostic in terms of the project language.
 
+Versions are created via [semver structure](https://semver.org/) and these MR labels are supported:  
+- **major** - set this if you need to bump MAJOR version of your project (x.0.0)  
+- **feature** - set this if you need to bump MINOR version of your project (0.x.0)  
+- **bug** - set this ir you need to bump PATCH version of your project (0.0.x)  
+
+I think later I'll add more exotic stuff
+
+**How to integrate it in GitLab-CI**
+
+We have this step in our pipelines:  
+
+```
+# Fail MR pipeline if no appropriate labels were set
+check-version:
+  stage: build
+  only:
+    - merge_requests
+  script:
+    - echo $CI_MERGE_REQUEST_LABELS | grep -e 'bug' -e 'chore' -e 'feature' -e 'major'
+```
+
+We're looking for these MR labels:  
+- **major**: This is a major change that should be thoroughly reviewed. Will bump MAJOR project version  
+- **feature**: This is for adding a feature. Will bump MINOR project version  
+- **bug**: This is a fix for the bug. Will bump PATCH project version  
+- **chore**: Changes to things that don't affect the app code itself. Will not bump project version. Docs, build system, tests and alike  
+
 It was created to run in GitLab-CI environment and it expects these environment variables to function properly:
 
 - CI_PROJECT_ID - Project ID from GitLab. You can find it on the overview page
@@ -19,7 +46,6 @@ You can run it in Docker or by itself with Nodejs
 `$ docker build -t glci:volatile .`  
 Create `.env` file with appropriate values (or you can just provide environment variables to Docker with `-e` flags)  
 `$ docker run --env-file .env glci:volatile`
-
 
 **Run script by itself**
 
