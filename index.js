@@ -69,6 +69,9 @@ async function getCurrentVersion() {
     console.log(`Got current version: ${currentVersion}`)
     if (semver.valid(currentVersion)) {
       console.log('Version is valid')
+    } else {
+        console.log(`ERROR: Current version is not valid!`);
+        process.exit(1);
     }
     return currentVersion;
 }
@@ -76,7 +79,7 @@ async function getCurrentVersion() {
 async function updateProjectVersion(newVersion) {
     let data = await httpRequest({
       hostname: `${serverHost}`,
-      path: `/api/v4/projects/${projectID}/repository/tags?tag_name=${newVersion}&ref=${defaultBranch}`,
+      path: `/api/v4/projects/${projectID}/repository/tags?tag_name=${newVersion}&ref=${defaultBranch}&message=${newVersion}`,
       method: 'POST',
       headers: {
         'Private-Token': `${token}`
@@ -89,15 +92,6 @@ async function updateProjectVersion(newVersion) {
     } else {
         console.log(`New version is now ${expectedVersion}`);
     }
-    // If you want to play it safe and delete tag afterwards for some reason
-    // await httpRequest({
-    //   hostname: `${serverHost}`,
-    //   path: `/api/v4/projects/${projectID}/repository/tags/${newVersion}`,
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Private-Token': `${token}`
-    //   }
-    // })
 }
 
 (async () => {

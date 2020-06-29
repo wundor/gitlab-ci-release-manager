@@ -52,3 +52,18 @@ Create `.env` file with appropriate values (or you can just provide environment 
 `$ npm ci`  
 Change `index.js` to provide needed environment variables (or just provide variables to Node in launch time)  
 `$ node index.js`
+
+## Release process
+
+Create release branch  
+curl -X POST --header "PRIVATE-TOKEN: token" "https://gitlab.example.com/api/v4/projects/123/repository/branches?branch=release-30&ref=develop"
+
+Commit to branch  
+curl --request POST \
+     --form "branch=release-30" \
+     --form "commit_message=Release 30 is here" \
+     --form "actions[][action]=create" \
+     --form "actions[][file_path]=version" \
+     --form "actions[][content]=release-30" \
+     --header "PRIVATE-TOKEN: Mwq6NSLebncasAAa_Zq6" \
+     "https://gitlab.example.com/api/v4/projects/123/repository/commits"
