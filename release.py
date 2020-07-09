@@ -76,8 +76,6 @@ def determine_new_version(gitlab, labels):
         return gitlab.current_version.bump_minor()
     elif "bug" in labels:
         return gitlab.current_version.bump_patch()
-    elif "chore" in labels:
-        return gitlab.current_version.bump_patch()
     else:
         return False
 
