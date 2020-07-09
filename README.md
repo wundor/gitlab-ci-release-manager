@@ -39,7 +39,7 @@ It was created to run in GitLab-CI environment and it expects these environment 
 It using GitLab API requests. Example URL for GitLab API request:  
 `https://gitlab.example.com/api/v4/projects/123/merge_requests/456?private_token=TOKEN`
 
-You can run it in Docker or by itself with Nodejs
+You can run it in Docker or by itself
 
 **Run script in Docker**
 
@@ -49,9 +49,9 @@ Create `.env` file with appropriate values (or you can just provide environment 
 
 **Run script by itself**
 
-`$ npm ci`  
-Change `index.js` to provide needed environment variables (or just provide variables to Node in launch time)  
-`$ node index.js`
+`$ pip install -r requirements.txt`  
+Change `release.py` to provide needed environment variables (or just provide variables in launch time)  
+`$ python release.py`
 
 ## Release process
 

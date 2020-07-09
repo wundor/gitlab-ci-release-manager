@@ -1,7 +1,6 @@
-FROM node:lts-slim
+FROM python:alpine
 WORKDIR /src
-COPY package.json /src/
-COPY package-lock.json /src/
-COPY index.js /src/
-RUN npm ci
-ENTRYPOINT node index.js
+COPY requirements.txt /src/
+RUN pip install -r requirements.txt
+COPY release.py /src/
+RUN chmod 0775 release.py
